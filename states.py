@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from random import randint
 from time import sleep
 
 
@@ -27,15 +28,35 @@ class Started(State):
 
 class Running(State):
     def notify(self):
-        print("Job is running")
         print("No need to notify anybody that job is running, So far so good!")
+        print("Job is running...........")
 
         sleep(3)
 
-        self.job.change_state(Succeeded())
+        if randint(0, 10) <= 5:
+            self.job.change_state(Succeeded())
+        else:
+            self.job.change_state(Failed())
 
 
 class Succeeded(State):
     def notify(self):
         print("Job has succesfully completed")
         print("Emailing Stakeholders!")
+
+        self.job.change_state(Finished())
+
+
+class Failed(State):
+    def notify(self):
+        print("Job has miserably Failed")
+        print("Emailing Engineering right away!")
+
+        self.job.change_state(Finished())
+
+
+class Finished(State):
+    def notify(self):
+        print("Job is Finished")
+
+        self.job.change_state(Finished())

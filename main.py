@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from states import Started
 
+
 class Job:
-    
     _current_state = None
 
     def __init__(self, state: State):
@@ -13,17 +13,12 @@ class Job:
         print(f"Job: Transitioning to {type(new_state).__name__}")
         self._current_state = new_state
         self._current_state.job = self
-    
+
     def notify(self):
         self._current_state.notify()
 
 
-        
-    
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     job = Job(Started())
-    for _ in range(3):
+    for _ in range(4):
         job.notify()
