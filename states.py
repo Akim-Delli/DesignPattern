@@ -41,5 +41,5 @@ class Running(State):
 class Succeeded(State):
 
     def notify(self):
-        print('Job has succefully completed')
+        print('Job has succesfully completed')
         print('Emailing Stakeholders!')
